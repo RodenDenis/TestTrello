@@ -1,21 +1,22 @@
-<template id="taskitem">
-    <li class="tasks-item">
-      <button :class="className"
+<template id="taskheader">
+    <ul class="tasks-header">
+      <li><button :class="classHeader"
           @click.self="$emit('complete')"
       >
         {{ task.title }}
-        <button class="tasks-item-add"> New item </button>
-      </button>
-      
-    </li>
+      </button></li>
+      <li class="tasks-item-text">text</li>
+      <li><button class="tasks-header-add"> New item </button></li>
+    </ul>
 </template>
 <script>
 export default {
   template: '#taskitem',
   props: ['task'],
   computed: {
-    className() {
-      let classes = ['tasks-item-title'];
+    classHeader() {
+      let classes = ['tasks-header-title'];
+      
       return classes.join(' ');
     }
   }
