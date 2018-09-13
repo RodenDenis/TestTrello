@@ -40,10 +40,15 @@ margin-left: -40px;
   min-height: 60px;
   border-radius: 5px;
   margin-right: 20px;
-  display: inline-block;
+  display: block;
   position: relative;
   float: left;
 }
+.tasks-list-decore {
+ list-style-type: none;
+ padding: 0;
+}
+
 ul.tasks-list {
   padding: 0;
 }
@@ -57,7 +62,6 @@ ul.tasks-list {
   font-size: 20px;
   border-radius: 5px 5px 0 0;
   background-color: #dfe3e6;
-  margin-bottom: 10px;
 }
 .tasks-list-title:hover {
   border-color: rgba(0,0,0,0.15);
@@ -72,7 +76,6 @@ ul.tasks-list {
   font-size: 14px;
   border-radius: 0 0 5px 5px;
   background-color: #dfe3e6;
-  margin-top: 10px;
 }
 .tasks-footer-add:hover {
   text-decoration: underline;
@@ -92,10 +95,23 @@ ul.tasks-list {
   outline: none;
  
 }
+.tasks-item-text:hover {
+  cursor: pointer;
+}
 .hide {
-  
+  display: none;
 }
-.tasks-item-text-save {
+.tasks-new {
+  margin-bottom: 10px;
+}
+.tasks-item-text-edit {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  transform: translateX(-35px);
+  border-top-right-radius: 5px;
+  outline: none;
+}
 
-}
 </style>

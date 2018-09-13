@@ -1,25 +1,22 @@
 <template id="taskheader">
-    <ul class="tasks-list">
-      <li>
-        <button :class="classHeader"
-          @click.self="$emit('complete')">
-        {{ task.title }}
-        </button>
-      </li>
-      <li class="hide" v-show="visible">
-        <textarea rows="6" v-show="showBlock" class="tasks-item-text" placeholder="some text">
-          
-        </textarea>
-        <button class="tasks-item-text-save" v-on:click="saveTask()">Save this task</button>
-      </li>
-      <li>
-        
-      </li>
-      <li>
-        <button class="tasks-footer-add" v-on:click="visible=!visible">{{visible?'Save this task':'+ Create new task in this list '}}
-        </button>
-      </li>
-    </ul>
+<div class="tasks-list">
+  <button :class="classHeader"
+    @click.self="$emit('complete')">
+  {{ task.title }}
+  </button>
+
+  <ul class="tasks-list-decore">
+    <li class="" v-show="visible"> 
+      <input rows="6" v-show="showBlock" class="tasks-item-text" placeholder="some text" >
+      <button class="tasks-item-text-edit" v-on:click="editTask()">Edit</button>  
+    </li>
+  </ul>
+      
+  <button class="tasks-footer-add" 
+  v-on:click="visible=!visible">
+  {{visible?'+ Create new task in this list':'+ Create new task in this list'}}
+  </button> 
+</div>   
 </template>
 <script>
 export default {
@@ -34,14 +31,12 @@ export default {
   
   data(){
     return{
-        id: 0,
         visible : false,
         showForm : true,
-        text: ""
     }
   },
   methods :{
-    saveTask : function(){
+    editTask(){
         this.id++;
         this.tasks.push(
         {
@@ -51,12 +46,12 @@ export default {
         this.id = '';
         this.text = '';
       },
-      show : function(){
+      show(){
         this.visible = !this.visible;
       },
-      showBlock : function(){
+      showBlock(){
         this.showBlock = !this.showBlock;
       }
-    }
+    },
   }
 </script>
