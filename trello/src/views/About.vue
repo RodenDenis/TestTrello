@@ -29,23 +29,25 @@ body {
   overflow: auto;
   background-color:  rgb(0, 121, 191);
 }
-.tasks-list {
+.tasks-board {
 margin-left: -40px;
 }
-.tasks-header {
-  width: 325px;
+.tasks-list {
+  width: 272px;
   list-style-type: none;
   margin-bottom: 5px;
   background-color: #dfe3e6;
   min-height: 60px;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-right: 20px;
   display: inline-block;
+  position: relative;
+  float: left;
 }
-ul.tasks-header {
+ul.tasks-list {
   padding: 0;
 }
-.tasks-header-title {
+.tasks-list-title {
   height: 24px;
   cursor: pointer;
   width: 100%;
@@ -53,14 +55,14 @@ ul.tasks-header {
   border: none;
   outline: none;
   font-size: 20px;
-  border-radius: 10px 10px 0 0;
+  border-radius: 5px 5px 0 0;
   background-color: #dfe3e6;
   margin-bottom: 10px;
 }
-.tasks-header-title:hover {
+.tasks-list-title:hover {
   border-color: rgba(0,0,0,0.15);
 }
-.tasks-header-add {
+.tasks-footer-add {
   height: 24px;
   cursor: pointer;
   width: 100%;
@@ -68,19 +70,32 @@ ul.tasks-header {
   border: none;
   outline: none;
   font-size: 14px;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 5px 5px;
   background-color: #dfe3e6;
   margin-top: 10px;
 }
+.tasks-footer-add:hover {
+  text-decoration: underline;
+  background-color: LightGray;
+}
 .tasks-item-text {
   min-height: 60px;
-  width: 90%;
+  max-height: 140px;
+  width: 94%;
   background-color: white;
   margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px;
-    text-align: left;
-    padding-left: 5px;
+  margin-right: auto;
+  border-radius: 5px;
+  padding-left: 5px;
+  border: none;
+  resize: none;
+  outline: none;
+ 
 }
+.hide {
+  
+}
+.tasks-item-text-save {
 
+}
 </style>

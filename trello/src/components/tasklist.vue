@@ -17,7 +17,7 @@
         </span>
       </div>
       
-      <transition-group name="fade" tag="ul" class="tasks-list">
+      <transition-group class="tasks-board">
           <taskitem v-for="(task, index) in tasks"
                      :task="task"
                      :key="index"
@@ -32,11 +32,11 @@ export default {
   components: {
     taskitem,
   },
-    template: '#tasklist',
+  template: '#tasklist',
   props: {
     tasks: {
       type: Array,
-    default: () => []
+      default: () => []
     }
   },
   data() {
