@@ -5,8 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    lists: [
-    ]
+    lists: [],
+    cards: []
   },
   getters: {
     countLists: state => {
@@ -17,13 +17,22 @@ export default new Vuex.Store({
     ADD_LIST: (state, list) => {
       state.lists.push(list);
     },
+    ADD_CARD: (state, card) => {
+      state.cards.push(card);
+    },
     REMOVE_LIST: (state, list) => {
       state.lists.splice(list, 1);
+    },
+    REMOVE_CARD: (state, card) => {
+      state.cards.splice(card, 1);
     }
   },
   actions: {
     removeList: (context, list) => {
-      context.commit("REMOVE_LIST", list)
+      context.commit("REMOVE_LIST", list);
+    },
+    removeList: (context, card) => {
+      context.commit("REMOVE_CARD", card);
     }
   }
 });
