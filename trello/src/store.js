@@ -15,7 +15,7 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_LIST: (state, list) => {
-      state.lists.push(list);
+      state.lists.push(list); 
     },
     ADD_CARD: (state, card) => {
       state.cards.push(card);
@@ -23,16 +23,12 @@ export default new Vuex.Store({
     REMOVE_LIST: (state, list) => {
       state.lists.splice(list, 1);
     },
-    REMOVE_CARD: (state, card) => {
-      state.cards.splice(card, 1);
-    }
+   
   },
   actions: {
     removeList: (context, list) => {
       context.commit("REMOVE_LIST", list);
     },
-    removeList: (context, card) => {
-      context.commit("REMOVE_CARD", card);
-    }
+    
   }
 });

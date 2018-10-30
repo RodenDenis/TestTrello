@@ -9,14 +9,16 @@
     <div class="list" v-for="(list, index) in lists" v-bind:key="index" >
       <div class="list-header">
         <div class="header-title">{{list}}</div>
-        <div class="header-menu"><button v-on:click="removeLists(index)" uk-icon="trash"></button></div>
-      </div>
+        
+        <div class="header-menu">
+          <button v-on:click="removeLists(index)" uk-icon="trash"></button></div>
+        </div>
 
       <div class="card uk-card uk-card-default" v-for="(card, index) in cards" v-bind:key="index"> 
         <div class="card-title">
           {{card}}
         </div>
-        <div class="footer-card-menu"><button v-on:click="removeCards(index)" uk-icon="trash"></button></div>
+        <div class="footer-card-menu"></div>
       </div>
 
       <form @submit.prevent="addCard" class="card-create-form">
@@ -33,7 +35,7 @@ export default {
   data() {
     return {
       newList: "",
-      newCard: ""
+      newCard: "",
     }
   },
   computed: {
@@ -49,7 +51,7 @@ export default {
     ]),
     ...mapActions([
       "removeList",
-      "removeCard"
+      
     ]),
     addList: function() {
       this.ADD_LIST(this.newList)
@@ -62,10 +64,13 @@ export default {
     removeLists: function(list) {
       this.removeList(list)
     },
-    removeCards: function(card) {
-      this.removeCard(card)
+   
+    showListForm() {
+      this.isListEditing = true;
     },
-
+    hideListForm() {
+      this.isListEditing = false;
+    }
   },
 
 }
@@ -85,7 +90,7 @@ html, body {
   border-radius: 10px;
 }
 .list-create-form {
-  
+  margin-bottom: 10px;
 }
 .list-header {
   
@@ -118,6 +123,7 @@ html, body {
 }
 .text-input {
   border-radius: 5px;
+  outline: 0;
 }
 </style>
 
