@@ -1,42 +1,58 @@
 <template>
-  <div>
-    <create-list v-on:create-list="createList"></create-list>
-    <todo-list v-bind:list="list"></todo-list>
-    
+  <div class="content">
+
+    <form @submit.prevent="addList">
+      <input type="text" placeholder="Create list" v-model="newList">
+    </form>
+
+    <div class="list" v-for="(list, index) in lists" v-bind:key="index" >
+      {{list}}
+      <button v-on:click="removeLists(index)" uk-icon="trash"></button>
+    </div>
+
   </div>
 </template>
-
 <script>
-import Todo from "@/components/Todo.vue";
-import TodoList from "@/components/TodoList.vue";
-import CreateTodo from "@/components/CreateTodo.vue";
-import CreateList from "@/components/CreateList.vue";
+import {mapState, mapMutations, mapActions} from "vuex";
 export default {
-  name: "app",
-  components: {
-    Todo,
-    TodoList,
-    CreateTodo,
-    CreateList
-  },
   data() {
     return {
-      list: [{
-        title: "Edit list title"
-      }],
-      todo: [{
-        title: "Edit todo",
-        task: "Edit todo",
-      }],
-    };
+      newList: "",
+    }
+  },
+  computed: {
+    ...mapState([
+      "lists"
+    ])
   },
   methods: {
-    createTodo(newTodo) {
-      this.todo.push(newTodo);
+    ...mapMutations([
+      "ADD_LIST"
+    ]),
+    ...mapActions([
+      "removeList"
+    ]),
+    addList: function() {
+      this.ADD_LIST(this.newList)
+      this.newList = ""
     },
-    createList(newList) {
-      this.list.push(newList);
+    removeLists: function(list) {
+      this.removeList(list)
     },
   },
-};
+
+}
 </script>
+<style>
+html, body {
+  background-color: gray;
+}
+.list {
+  width: 18%;
+  background-color: lightgray;
+  display: block;
+  float: left;
+  margin-left: 10px;
+}
+</style>
+
