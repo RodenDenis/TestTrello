@@ -5,14 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    lists: [
-      {
-        title: "",
-        cards: [
-          {card: ""}
-        ],
-      },
-    ],
+    lists: [],
+    cards: []
   },
   getters: {
     countLists: state => {
@@ -20,11 +14,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    ADD_LIST: (state, { title }) => {
-      state.lists.push({ title, cards: [] });
+    ADD_LIST: (state, list) => {
+      state.lists.push(list);
     },
-    ADD_CARD: (state, { card }) => {
-      state.lists.cards.push({ card });
+    ADD_CARD: (state, card) => {
+      state.cards.push(card);
     },
     REMOVE_LIST: (state, list) => {
       state.lists.splice(list, 1);

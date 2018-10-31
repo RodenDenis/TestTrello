@@ -2,13 +2,13 @@
   <div class="content">
 
     <form @submit.prevent="addList" class="list-create-form">
-      <input class="text-input" type="text" placeholder="Create list" v-model="title" >
+      <input class="text-input" type="text" placeholder="Create list" v-model="newList" >
       <button >Create</button>
     </form>
 
     <div class="list" v-for="(list, index) in lists" v-bind:key="index" >
       <div class="list-header">
-        <div class="header-title">{{lists.title}}</div>
+        <div class="header-title">{{list}}</div>
         
         <div class="header-menu">
           <button v-on:click="showListForm(index)" uk-icon="pencil"></button>
@@ -17,13 +17,13 @@
 
       <div class="card uk-card uk-card-default" v-for="(card, index) in cards" v-bind:key="index"> 
         <div class="card-title">
-         sda
+          {{card}}
         </div>
         <div class="footer-card-menu"><button v-on:click="removeCards(index)" uk-icon="trash"></button></div>
       </div>
 
       <form @submit.prevent="addCard" class="card-create-form">
-        <input class="text-input" type="text" placeholder="Create card" v-model="card" >
+        <input class="text-input" type="text" placeholder="Create card" v-model="newCard" >
         <button >Create</button>
       </form>
     </div>
@@ -35,8 +35,8 @@ import {mapState, mapMutations, mapActions} from "vuex";
 export default {
   data() {
     return {
-      title: "",
-      card: "",
+      newList: "",
+      newCard: "",
       isListEditing: false
     }
   },
@@ -56,13 +56,23 @@ export default {
       "removeCard"
     ]),
     addList: function() {
-      this.ADD_LIST(this.title)
-      this.lists.title = ""
+      this.ADD_LIST(this.newList)
+      this.newList = ""
     },
     addCard: function() {
-      this.ADD_CARD(this.cards)
-      this.lists.cards.card = ""
+      this.ADD_CARD(this.newCard)
+      this.newCard = ""
     },
+    removeLists: function(list) {
+      this.removeList(list)
+    },
+   
+    showListForm() {
+      this.isListEditing = true;
+    },
+    hideListForm() {
+      this.isListEditing = false;
+    }
   },
 
 }
