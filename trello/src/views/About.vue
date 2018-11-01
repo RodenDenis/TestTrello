@@ -2,42 +2,35 @@
   <div class="content">
 
     <form @submit.prevent="addList" class="list-create-form">
-      <input class="text-input" type="text" placeholder="Create list" v-model="newList" >
+      <input class="text-input" type="text" placeholder="Create list" v-model="list['header']" >
       <button >Create</button>
     </form>
 
-    <div class="list" v-for="(list, index) in lists" v-bind:key="index" >
+    <div class="list" v-for="(list, index) in lists" :key="index">
       <div class="list-header">
-        <div class="header-title">{{list}}</div>
-        
-        <div class="header-menu">
-          <button v-on:click="showListForm(index)" uk-icon="pencil"></button>
-          <button v-on:click="removeLists(index)" uk-icon="trash"></button></div>
-      </div>
+        <div class="header-title">{{list["header"]}}</div>
 
-      <div class="card uk-card uk-card-default" v-for="(card, index) in cards" v-bind:key="index"> 
-        <div class="card-title">
-          {{card}}
+        <div class="card uk-card uk-card-default" v-for="(card, index) in cards" :key="index"> 
+          <div class="card-title" >
+            {{lists[index].task}}
+          </div>
         </div>
-        <div class="footer-card-menu"><button v-on:click="removeCards(index)" uk-icon="trash"></button></div>
+
+        <form @submit.prevent="addCard" class="card-create-form">
+          <input class="text-input" type="text" placeholder="Create card" v-model="list.task">
+          <button >Create</button>
+        </form>
       </div>
-
-      <form @submit.prevent="addCard" class="card-create-form">
-        <input class="text-input" type="text" placeholder="Create card" v-model="newCard" >
-        <button >Create</button>
-      </form>
     </div>
-
   </div>
 </template>
 <script>
 import {mapState, mapMutations, mapActions} from "vuex";
 export default {
-  data() {
+  data: function(){
     return {
-      newList: "",
-      newCard: "",
-      isListEditing: false
+      list: {cards:[{task:""}]},
+      card: {},
     }
   },
   computed: {
@@ -52,29 +45,16 @@ export default {
       "ADD_CARD"
     ]),
     ...mapActions([
-      "removeList",
-      "removeCard"
     ]),
     addList: function() {
-      this.ADD_LIST(this.newList)
-      this.newList = ""
+      this.ADD_LIST(this.list)
+      this.list = {header:"", cards:[]}
     },
     addCard: function() {
-      this.ADD_CARD(this.newCard)
-      this.newCard = ""
+      this.ADD_CARD(this.card)
+      this.card = {task:""}
     },
-    removeLists: function(list) {
-      this.removeList(list)
-    },
-   
-    showListForm() {
-      this.isListEditing = true;
-    },
-    hideListForm() {
-      this.isListEditing = false;
-    }
   },
-
 }
 </script>
 <style>
