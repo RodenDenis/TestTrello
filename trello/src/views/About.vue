@@ -8,16 +8,16 @@
 
     <div class="list" v-for="(list, index) in lists" :key="index">
       <div class="list-header">
-        <div class="header-title">{{list["header"]}}</div>
+        <div class="header-title">{{list.header}}</div>
 
         <div class="card uk-card uk-card-default" v-for="(card, index) in cards" :key="index"> 
           <div class="card-title" >
-            {{lists[index].task}}
+            {{list.task}}
           </div>
         </div>
 
-        <form @submit.prevent="addCard" class="card-create-form">
-          <input class="text-input" type="text" placeholder="Create card" v-model="list.task">
+        <form @submit.prevent="addCard" class="card-create-form" >
+          <input class="text-input" type="text" placeholder="Create card" v-model="card.task">
           <button >Create</button>
         </form>
       </div>
@@ -29,7 +29,7 @@ import {mapState, mapMutations, mapActions} from "vuex";
 export default {
   data: function(){
     return {
-      list: {cards:[{task:""}]},
+      list: {},
       card: {},
     }
   },
@@ -48,7 +48,7 @@ export default {
     ]),
     addList: function() {
       this.ADD_LIST(this.list)
-      this.list = {header:"", cards:[]}
+      this.list = {header:"", cards:[{task:""}]}
     },
     addCard: function() {
       this.ADD_CARD(this.card)
