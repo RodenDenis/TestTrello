@@ -12,7 +12,7 @@
 
         <div class="card uk-card uk-card-default" v-for="(card, index) in cards" :key="index"> 
           <div class="card-title" >
-            {{list.task}}
+            {{cards[index].task}}
           </div>
         </div>
 
