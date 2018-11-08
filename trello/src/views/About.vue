@@ -2,21 +2,21 @@
   <div class="content">
 
     <form @submit.prevent="addList" class="list-create-form">
-      <input class="text-input" type="text" placeholder="Create list" v-model="list['header']" >
+      <input class="text-input" type="text" placeholder="Create list" v-model="list.header" >
     </form>
     
-    <div class="list" v-for="list in lists" :key="list.id">
+    <div class="list" v-for="(list, index) in lists" :key="index" :listId="listId">
       <div class="list-header">
         <div class="header-title">{{list.header}}</div>
 
-        <div class="card uk-card uk-card-default" v-for="card in cards" :key="card.id"> 
-          <div v-if="list.id == cards.cardId">
+        <div class="card uk-card uk-card-default" v-for="(card, index) in cards" :key="index" :listId="listId" :cards="cardsList"> 
+          <div >
             <div class="card-title" >
               {{card.task}}
             </div>
           </div>
         </div>
-        <input class="text-input" type="text" @keyup.enter="addCard($event,list.id)" v-model="card['task']">
+        <input class="text-input" type="text" @keyup.enter="addCard(list.id)" v-model="card.task">
       </div>
     </div>
   </div>
@@ -24,19 +24,24 @@
 <script>
 import {mapState, mapMutations, mapActions} from "vuex";
 export default {
+
   data: function(){
     return {
-      listId: 2,
-      cardId: 2,
-      list: {header:"", id: 1},
-      card: {task:"", id: 1},
+      listId: 1,
+      cardId: 1,
+      list: {},
+      card: {},
     }
   },
+  
   computed: {
     ...mapState([
       "lists",
       "cards"
-    ])
+    ]),
+    cardsList () {
+      return this.getCardsFromList(this.listId)
+    }
   },
   methods: {
     ...mapMutations([
@@ -44,17 +49,27 @@ export default {
       "ADD_CARD"
     ]),
     ...mapActions([
+      'addList',
+      'addTask',
+      'fetchTasks'
     ]),
-    addList(e, list) {
+    addList() {
       this.ADD_LIST(this.list);
-      this.list = {header:"", id: this.listId};
+      this.list = {header: this.listHeader, id: this.listId};
+      this.header = '';
       this.listId++;
     },
-    addCard(e, listId) {
+    addCard(listId) {
       this.ADD_CARD(this.card);
-      this.card = {task:"", id: this.cardId};
+      this.card = { listNum: this.listId, task: this.task, id: this.cardId};
+      this.listNum = this.listId;
+      this.task = '';
       this.cardId++;
     },
+    getCardsFromList: (state) => (listId) => {
+    return Object.values(state.cards)
+      .filter(card => card.listNum === listId)
+  },
   },
 }
 </script>
@@ -109,4 +124,3 @@ html, body {
   outline: 0;
 }
 </style>
-

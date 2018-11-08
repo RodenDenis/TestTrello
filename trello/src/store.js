@@ -14,12 +14,12 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    ADD_LIST: (state, header) => {
-      state.lists.push(header);
+    ADD_LIST: (state, { header, id} ) => {
+      state.lists.push({header, id});
     },
-    ADD_CARD: (state, task) => {
-      state.cards.push(task);
-    }
+    ADD_CARD: (state, {task, listNum, id}) => {
+      state.cards.push({task, listNum, id});
+    },
   },
   actions: {}
 });
