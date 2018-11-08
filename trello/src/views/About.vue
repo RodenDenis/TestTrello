@@ -3,23 +3,20 @@
 
     <form @submit.prevent="addList" class="list-create-form">
       <input class="text-input" type="text" placeholder="Create list" v-model="list['header']" >
-      <button >Create</button>
     </form>
-
-    <div class="list" v-for="(list, index) in lists" :key="index">
+    
+    <div class="list" v-for="list in lists" :key="list.id">
       <div class="list-header">
         <div class="header-title">{{list.header}}</div>
 
-        <div class="card uk-card uk-card-default" v-for="(card, index) in cards" :key="index"> 
-          <div class="card-title" >
-            {{cards[index].task}}
+        <div class="card uk-card uk-card-default" v-for="card in cards" :key="card.id"> 
+          <div v-if="list.id == cards.cardId">
+            <div class="card-title" >
+              {{card.task}}
+            </div>
           </div>
         </div>
-
-        <form @submit.prevent="addCard" class="card-create-form" >
-          <input class="text-input" type="text" placeholder="Create card" v-model="card.task">
-          <button >Create</button>
-        </form>
+        <input class="text-input" type="text" @keyup.enter="addCard($event,list.id)" v-model="card['task']">
       </div>
     </div>
   </div>
@@ -29,8 +26,10 @@ import {mapState, mapMutations, mapActions} from "vuex";
 export default {
   data: function(){
     return {
-      list: {},
-      card: {},
+      listId: 2,
+      cardId: 2,
+      list: {header:"", id: 1},
+      card: {task:"", id: 1},
     }
   },
   computed: {
@@ -46,13 +45,15 @@ export default {
     ]),
     ...mapActions([
     ]),
-    addList: function() {
-      this.ADD_LIST(this.list)
-      this.list = {header:"", cards:[{task:""}]}
+    addList(e, list) {
+      this.ADD_LIST(this.list);
+      this.list = {header:"", id: this.listId};
+      this.listId++;
     },
-    addCard: function() {
-      this.ADD_CARD(this.card)
-      this.card = {task:""}
+    addCard(e, listId) {
+      this.ADD_CARD(this.card);
+      this.card = {task:"", id: this.cardId};
+      this.cardId++;
     },
   },
 }

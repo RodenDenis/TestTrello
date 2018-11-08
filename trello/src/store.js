@@ -18,7 +18,7 @@ export default new Vuex.Store({
       state.lists.push(header);
     },
     ADD_CARD: (state, task) => {
-      state.cards.push( task );
+      state.cards.push(task);
     }
   },
   actions: {}
